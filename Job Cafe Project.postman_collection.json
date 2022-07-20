@@ -1,0 +1,412 @@
+{
+	"info": {
+		"_postman_id": "959ba0b7-59f8-40a5-9793-1f2926cb4784",
+		"name": "Job Cafe Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20629794"
+	},
+	"item": [
+		{
+			"name": "Positive tests",
+			"item": [
+				{
+					"name": "Get response by location",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code Test\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response content location test\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"location\")\r",
+									"});\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Location city name test1\", function(){\r",
+									"    pm.expect(jsonResponse.content[0].location).to.include(\"Toronto\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location city name test2\", function(){\r",
+									"    pm.expect(jsonResponse.content[3].location).to.eq(\"Toronto, ON, Canada\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{JobCaURL}}/jobs?location=Toronto",
+							"host": [
+								"{{JobCaURL}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "Toronto"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get response by company",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code Test\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response content company test\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"company\")\r",
+									"});\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Location & position name test\", function(){\r",
+									"    pm.expect(jsonResponse.content[0].company).to.include(\"Apple\");\r",
+									"   \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location city name test2\", function(){\r",
+									"    pm.expect(jsonResponse.content[3].company).to.include(\"Apple\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{JobCaURL}}/jobs?company=Apple",
+							"host": [
+								"{{JobCaURL}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "Apple"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get response by location & position",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code Test\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response content location test\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"location\")\r",
+									"});\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Location & position name test\", function(){\r",
+									"    pm.expect(jsonResponse.content[0].position).to.include(\"QA\");\r",
+									"    pm.expect(jsonResponse.content[0].location).to.eq(\"Ottawa, ON, Canada\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location city name test2\", function(){\r",
+									"    pm.expect(jsonResponse.content[4].location).to.eq(\"Ottawa, ON, Canada\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{JobCaURL}}/jobs?location=Ottawa&position=QA",
+							"host": [
+								"{{JobCaURL}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "Ottawa"
+								},
+								{
+									"key": "position",
+									"value": "QA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get response by location & position & company",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code Test\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Company & position name test\", function(){\r",
+									"    pm.expect(jsonResponse.content[0].company).to.eq(\"IQVIA\");\r",
+									"    pm.expect(jsonResponse.content[0].position).to.include(\"QA\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Date test\", function(){\r",
+									"    pm.expect(jsonResponse.content[0].date).to.include(\"2022-07-15\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{JobCaURL}}/jobs?location=Ottawa&position=QA&company=IQVIA&date=2022-07-15",
+							"host": [
+								"{{JobCaURL}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "Ottawa"
+								},
+								{
+									"key": "position",
+									"value": "QA"
+								},
+								{
+									"key": "company",
+									"value": "IQVIA"
+								},
+								{
+									"key": "date",
+									"value": "2022-07-15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get response by position",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code Test\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response content salary test\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"salary\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response content seniority test\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"seniority\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response content description test\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+									"});\r",
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Position name test\", function(){\r",
+									"    pm.expect(jsonResponse.content[0].position).to.include(\"QA\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Position name test\", function(){\r",
+									"    pm.expect(jsonResponse.content[5].position).to.include(\"QA\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{JobCaURL}}/jobs?position=QA",
+							"host": [
+								"{{JobCaURL}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "position",
+									"value": "QA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get response by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Company name test\", function(){\r",
+									"    pm.expect(jsonResponse.content[0].company).to.eq(\"AppleOne Technical\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Position name test\", function(){\r",
+									"    pm.expect(jsonResponse.content[0].position).to.eq(\"Construction Project Manager\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"ID test\", function(){\r",
+									"    pm.expect(jsonResponse.content[0].id).to.eq(\"62d6aac1bc2f450a3b3ce8a6\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{JobCaURL}}/jobs?id=62d6aac1bc2f450a3b3ce8a6",
+							"host": [
+								"{{JobCaURL}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "62d6aac1bc2f450a3b3ce8a6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Negative Tests",
+			"item": [
+				{
+					"name": "Get response wrong location",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code Test\", function(){\r",
+									"    pm.response.to.have.status(204);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{JobCaURL}}/jobs?location=Moscow",
+							"host": [
+								"{{JobCaURL}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "Moscow"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get response by invalid ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code Test\", function(){\r",
+									"    pm.response.to.have.status(204);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{JobCaURL}}/jobs?id=8459827305",
+							"host": [
+								"{{JobCaURL}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "8459827305"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
